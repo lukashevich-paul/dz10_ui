@@ -50,11 +50,11 @@ AudioMixerController:
   m_UpdateMode: 0
   m_ExposedParameters:
   - guid: c024aacfc29f3a64187b7765b7bc3f87
-    name: EffectVolume
+    name: Effect
   - guid: 27f0be651c09c534f8a25f5cbbe1348f
-    name: MasterVolume
+    name: Master
   - guid: ce3c41c064c2b34458db26ea0cd6800a
-    name: SoundVolume
+    name: Sound
   m_AudioMixerGroupViews:
   - guids:
     - 3da5287233c426142bb0071e38e3de9d
@@ -116,7 +116,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Effects
+  m_Name: Effect
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: bc62874a92ee6094ea311b0b5917e0f2
   m_Children: []

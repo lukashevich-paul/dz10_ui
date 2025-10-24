@@ -3,28 +3,53 @@ using UnityEngine.Audio;
 
 public class SettingPanel : MonoBehaviour
 {
-    public const float MagicNumber = 20f;
+    public const float PowerConversionFactor = 20f;
+    public const float ZeroSliderValue = 0f;
+    public const float MinimumVolume = -80f;
 
-    public readonly string MasterVolume = nameof(MasterVolume);
-    public readonly string SoundVolume = nameof(SoundVolume);
-    public readonly string EffectVolume = nameof(EffectVolume);
+    public readonly string Master = nameof(Master);
+    public readonly string Sound = nameof(Sound);
+    public readonly string Effect = nameof(Effect);
 
-    [SerializeField] private AudioMixerGroup _masterMixer;
-    [SerializeField] private AudioMixerGroup _soundMixer;
-    [SerializeField] private AudioMixerGroup _effectMixer;
+    [SerializeField] private AudioMixer _mixer;
+
+    private float _previousSliderValue = 0.7f;
 
     public void ChangeMasterVolume(float volume)
     {
-        _masterMixer.audioMixer.SetFloat(MasterVolume, Mathf.Log10(volume) * MagicNumber);
+        ChangeVolume(Master, volume);
     }
 
     public void ChangeSoundVolume(float volume)
     {
-        _soundMixer.audioMixer.SetFloat(SoundVolume, Mathf.Log10(volume) * MagicNumber);
+        ChangeVolume(Sound, volume);
     }
 
     public void ChangeEffectVolume(float volume)
     {
-        _effectMixer.audioMixer.SetFloat(EffectVolume, Mathf.Log10(volume) * MagicNumber);
+        ChangeVolume(Effect, volume);
+    }
+
+    public void Mute()
+    {
+        ChangeMasterVolume(ZeroSliderValue);
+    }
+
+    public void Unmute()
+    {
+        ChangeMasterVolume(_previousSliderValue);
+    }
+
+    private void ChangeVolume(string mixerGroup, float volume)
+    {
+        float volumeValue = MinimumVolume;
+
+        if (volume > 0)
+        {
+            _previousSliderValue = volume;
+            volumeValue = Mathf.Log10(volume) * PowerConversionFactor;
+        }
+
+        _mixer.SetFloat(mixerGroup, volumeValue);
     }
 }
