@@ -23,11 +23,11 @@ public class TextSmoothBar : BarParent
 
         if (_coroutine == null)
         {
-            _coroutine = StartCoroutine(Routine());
+            _coroutine = StartCoroutine(ShowSmoothly());
         }
     }
 
-    private IEnumerator Routine()
+    private IEnumerator ShowSmoothly()
     {
         WaitForSeconds wait = new WaitForSeconds(_delay);
 

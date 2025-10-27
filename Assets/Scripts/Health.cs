@@ -16,35 +16,30 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        _value -= damage;
-
-
-        if (_value <= 0)
+        if (damage > 0)
         {
-            Died?.Invoke();
-            _value = 0;
+            _value -= damage;
+
+            if (_value <= 0)
+            {
+                Died?.Invoke();
+                _value = 0;
+            }
+
+            Changed?.Invoke();
         }
-
-        Changed?.Invoke();
-    }
-
-    public void TakeCure()
-    {
-        _value += MaxValue / PartOfMaxValue;
-
-        if (_value > MaxValue)
-            _value = MaxValue;
-
-        Changed?.Invoke();
     }
 
     public void TakeCure(float value)
     {
-        _value += value;
+        if (value > 0)
+        {
+            _value += value;
 
-        if (_value > MaxValue)
-            _value = MaxValue;
+            if (_value > MaxValue)
+                _value = MaxValue;
 
-        Changed?.Invoke();
+            Changed?.Invoke();
+        }
     }
 }

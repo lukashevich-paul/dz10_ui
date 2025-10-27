@@ -1,22 +1,19 @@
-using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Button))]
-public class TreatButton : MonoBehaviour
+public class TreatButton : ButtonParent
 {
-    [SerializeField, Range(0, 99)] private float _healthValue = 10f;
-    [SerializeField] private Health _health;
-
-    private Button _button;
-
-    private void Start()
+    private void OnEnable()
     {
-        _button = GetComponent<Button>();
-        _button.onClick.AddListener(ToTreat);
+        Button.onClick.AddListener(ToTreat);
+    }
+
+    private void OnDisable()
+    {
+        Button.onClick.RemoveListener(ToTreat);
     }
 
     private void ToTreat()
     {
-        _health.TakeCure(_healthValue);
+        Health.TakeCure(HealthValue);
     }
 }
